@@ -1,10 +1,15 @@
 package test;
 
 public class Node {
-	Node next = null;
-	int data;
+	public int data;
+	public Node left;
+	public Node right;
+	public int leftMaxDistance;
+	public int rightMaxDistance;
 
 	public Node(int data) {
 		this.data = data;
+		this.left = null;
+		this.right = null;
 	}
 }
