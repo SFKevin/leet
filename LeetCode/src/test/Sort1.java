@@ -6,7 +6,7 @@ public class Sort1 {
 	@Test
 	public void test() {
 		int[] a = { 13, 65, 97, 76, 38, 27, 49 };
-		mergeSort(a, 0, a.length - 1);
+		heapSort(a);
 		for (int i : a) {
 			System.out.println(i);
 		}
@@ -170,6 +170,43 @@ public class Sort1 {
 				}
 				array[j + h] = temp;
 			}
+		}
+	}
+
+	private static int leftChild(int b) {
+		return 2 * b + 1;
+	}
+
+	public static void heapAdjust(int[] arr, int i, int n) {
+		int child = 0;
+		int father;
+		for (father = arr[i]; leftChild(i) < n; i = child) {
+			child = leftChild(i);
+			if (child < n && arr[child] < arr[child + 1]) {
+				child++;
+			}
+			if (father < arr[child]) {
+				arr[i] = arr[child];
+			} else {
+				break;
+			}
+		}
+		arr[i] = father;
+	}
+
+	private static void swap(int[] arr, int index1, int index2) {
+		int temp = arr[index1];
+		arr[index1] = arr[index2];
+		arr[index2] = temp;
+	}
+
+	public static void heapSort(int[] arr) {
+		for (int i = arr.length / 2 - 1; i >= 0; i--) {
+			heapAdjust(arr, i, arr.length);
+		}
+		for (int i = arr.length - 1; i >= 0; i--) {
+			swap(arr, 0, i);
+			heapAdjust(arr, 0, i - 1);
 		}
 	}
 }
