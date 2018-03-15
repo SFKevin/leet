@@ -1,6 +1,7 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Stack;
 
 public class Offer {
 	public ListNode Merge(ListNode list1, ListNode list2) {
@@ -150,5 +151,134 @@ public class Offer {
 			}
 		}
 		return -1;
+	}
+
+	Stack<Integer> stack1 = new Stack<Integer>();
+	Stack<Integer> stack2 = new Stack<Integer>();
+
+	/**
+	 * 用两个栈来实现一个队列，完成队列的Push和Pop操作。 队列中的元素为int类型。
+	 * 
+	 * @param node
+	 */
+	public void push(int node) {
+		stack1.add(node);
+
+	}
+
+	public int pop() {
+		int answer;
+		while (!stack1.isEmpty()) {
+			int temp = stack1.pop();
+			stack2.add(temp);
+		}
+		answer = stack2.pop();
+		while (!stack2.isEmpty()) {
+			int temp = stack2.pop();
+			stack1.add(temp);
+		}
+		return answer;
+	}
+
+	/**
+	 * 把一个数组最开始的若干个元素搬到数组的末尾，我们称之为数组的旋转。 输入一个非递减排序的数组的一个旋转，输出旋转数组的最小元素。
+	 * 例如数组{3,4,5,1,2}为{1,2,3,4,5}的一个旋转，该数组的最小值为1。
+	 * NOTE：给出的所有元素都大于0，若数组大小为0，请返回0。
+	 * 
+	 * @param array
+	 * @return
+	 */
+	public int minNumberInRotateArray(int[] array) {
+		int len = array.length;
+		int answer = 0;
+		if (len == 0) {
+			return 0;
+		}
+		for (int i = 1; i < len; i++) {
+			if (array[i] < array[i - 1]) {
+				answer = array[i];
+			}
+		}
+		return answer;
+	}
+
+	public int Fibonacci(int n) {
+		if (n == 0) {
+			return 0;
+		}
+		if (n == 1) {
+			return 1;
+		}
+		return Fibonacci(n - 1) + Fibonacci(n - 2);
+	}
+
+	/**
+	 * 我们可以用2*1的小矩形横着或者竖着去覆盖更大的矩形。请问用n个2*1的小矩形无重叠地覆盖一个2*n的大矩形，总共有多少种方法？
+	 * 
+	 * @param target
+	 * @return
+	 */
+	public int RectCover(int target) {
+		if (target == 0) {
+			return 0;
+		}
+		if (target == 1) {
+			return 1;
+		}
+		if (target == 2) {
+			return 2;
+		}
+		return RectCover(target - 1) + RectCover(target - 2);
+
+	}
+
+	/**
+	 * 输入一个整数，输出该数二进制表示中1的个数。其中负数用补码表示
+	 * 
+	 * @param n
+	 * @return
+	 */
+	public int NumberOf1(int n) {
+		int count = 0;
+		int flag = 1;
+		while (flag != 0) {
+			if ((n & flag) != 0) {
+				count++;
+			}
+			flag = flag << 1;
+		}
+		return count;
+	}
+
+	/**
+	 * 给定一个double类型的浮点数base和int类型的整数exponent。求base的exponent次方。
+	 * 
+	 * @param base
+	 * @param exponent
+	 * @return
+	 */
+	public double Power(double base, int exponent) {
+		double res = 1;
+		double curr = base;
+		int n = exponent;
+		if (n < 0) {
+			if (base == 0) {
+				throw new RuntimeException("分母不能为0");
+			} else {
+				exponent = -n;
+			}
+		} else if (n > 0) {
+			exponent = n;
+		} else {
+			return 1;
+		}
+		while (exponent != 0) {
+			if ((exponent & 1) == 1) {
+				res *= curr;
+			}
+			curr *= curr;
+			exponent >>= 1;
+		}
+		return n >= 0 ? res : 1 / res;
 	}
 }
