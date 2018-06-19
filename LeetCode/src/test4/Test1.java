@@ -175,21 +175,18 @@ public class Test1 {
 		return matchCore(str, strIndex, pattern, patternIndex);
 	}
 
-	private boolean matchCore(char[] str, int strIndex, char[] pattern,
-			int patternIndex) {
+	private boolean matchCore(char[] str, int strIndex, char[] pattern, int patternIndex) {
 		if (strIndex == str.length && patternIndex == pattern.length) {
 			return true;
 		}
 		if (strIndex != str.length && patternIndex == pattern.length) {
 			return false;
 		}
-		if (patternIndex + 1 < pattern.length
-				&& pattern[patternIndex + 1] == '*') {
+		if (patternIndex + 1 < pattern.length && pattern[patternIndex + 1] == '*') {
 			if ((strIndex != str.length && pattern[patternIndex] == str[strIndex])
 					|| (pattern[patternIndex] == '.' && strIndex != str.length)) {
 				return matchCore(str, strIndex, pattern, patternIndex + 2)
-						|| matchCore(str, strIndex + 1, pattern,
-								patternIndex + 2)
+						|| matchCore(str, strIndex + 1, pattern, patternIndex + 2)
 						|| matchCore(str, strIndex + 1, pattern, patternIndex);
 			} else {
 				return matchCore(str, strIndex, pattern, patternIndex + 2);
@@ -340,8 +337,7 @@ public class Test1 {
 			return false;
 		}
 		if (left.val == right.val) {
-			return symmetrical(left.left, right.right)
-					&& symmetrical(left.right, right.left);
+			return symmetrical(left.left, right.right) && symmetrical(left.right, right.left);
 		}
 		return false;
 	}
@@ -454,13 +450,12 @@ public class Test1 {
 
 	int count = 0;
 	PriorityQueue<Integer> minHeap = new PriorityQueue<Integer>();
-	PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(11,
-			new Comparator<Integer>() {
-				@Override
-				public int compare(Integer o1, Integer o2) {
-					return o2.compareTo(o1);
-				}
-			});
+	PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(11, new Comparator<Integer>() {
+		@Override
+		public int compare(Integer o1, Integer o2) {
+			return o2.compareTo(o1);
+		}
+	});
 
 	public void Insert(Integer num) {
 		count++;
@@ -490,6 +485,46 @@ public class Test1 {
 			result = (minHeap.peek() + maxHeap.peek()) / 2;
 		}
 		return result;
+	}
+
+	public ListNode sortList(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		ListNode mid = getMid(head);
+		ListNode midnext = mid.next;
+		mid.next = null;
+		return mergeNode(sortList(head), sortList(midnext));
+	}
+
+	private ListNode mergeNode(ListNode n1, ListNode n2) {
+		ListNode prehead = new ListNode(0);
+		ListNode cur1 = n1, cur2 = n2, cur = prehead;
+		while (cur1 != null && cur2 != null) {
+			if (cur1.val < cur2.val) {
+				cur.next = cur1;
+				cur1 = cur1.next;
+			} else {
+				cur.next = cur2;
+				cur2 = cur2.next;
+			}
+			cur = cur.next;
+		}
+		cur.next = cur1 == null ? cur2 : cur1;
+		return prehead.next;
+	}
+
+	private ListNode getMid(ListNode head) {
+		if (head == null || head.next == null) {
+			return head;
+		}
+		ListNode slow = head;
+		ListNode quick = head;
+		while (quick.next != null && quick.next.next != null) {
+			slow = slow.next;
+			quick = quick.next.next;
+		}
+		return slow;
 	}
 
 }
