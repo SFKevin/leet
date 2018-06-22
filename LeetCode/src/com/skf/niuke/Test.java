@@ -82,4 +82,91 @@ public class Test {
 		}
 		return list;
 	}
+
+	public ArrayList<Integer> preorderTraversal(TreeNode root) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		Stack<TreeNode> stack = new Stack<TreeNode>();
+		while (root != null || !stack.isEmpty()) {
+			while (root != null) {
+				list.add(root.val);
+				stack.push(root);
+				root = root.left;
+			}
+			if (!stack.isEmpty()) {
+				root = stack.pop();
+				root = root.right;
+			}
+		}
+		return list;
+	}
+
+	public static void quickSort(int[] a, int low, int high) {
+		if (low >= high) {
+			return;
+		}
+		int index = a[low];
+		int i = low;
+		int j = high;
+		while (i < j) {
+			while (i < j && index < a[j]) {
+				j--;
+			}
+			if (i < j) {
+				a[i++] = a[j];
+			}
+			while (i < j && index > a[i]) {
+				i++;
+			}
+			if (i < j) {
+				a[j--] = a[i];
+			}
+		}
+		a[i] = index;
+		quickSort(a, low, i - 1);
+		quickSort(a, i + 1, high);
+	}
+
+	public static void heapAdjust(int[] a, int i, int n) {
+		int father;
+		int child = 0;
+		for (father = a[i]; 2 * i + 1 < n; i = child) {
+			child = 2 * i + 1;
+			if (child < n && a[child] < a[child + 1]) {
+				child++;
+			}
+			if (father < a[child]) {
+				a[i] = a[child];
+			} else {
+				break;
+			}
+		}
+		a[i] = father;
+	}
+
+	public void heapSort(int[] a) {
+		int len = a.length;
+		for (int i = len / 2 - 1; i >= 0; i--) {
+			heapAdjust(a, i, len);
+		}
+		for (int i = len - 1; i > 0; i--) {
+			swap(a, i, 0);
+			heapAdjust(a, 0, i - 1);
+		}
+	}
+
+	private void swap(int[] a, int i, int j) {
+		int temp = a[i];
+		a[i] = a[j];
+		a[j] = temp;
+	}
+
+	@org.junit.Test
+	public void test() {
+		int[] a = { 13, 65, 97, 76, 38, 27, 49 };
+		heapSort(a);
+		// mergeSort(a, 0, a.length - 1);
+		for (int i : a) {
+			System.out.println(i);
+		}
+	}
 }
