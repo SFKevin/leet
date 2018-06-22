@@ -163,10 +163,69 @@ public class Test {
 	@org.junit.Test
 	public void test() {
 		int[] a = { 13, 65, 97, 76, 38, 27, 49 };
-		heapSort(a);
+		slectSort(a);
 		// mergeSort(a, 0, a.length - 1);
 		for (int i : a) {
 			System.out.println(i);
+		}
+	}
+
+	public void reorderList(ListNode head) {
+		if (head == null || head.next == null) {
+			return;
+		}
+		ListNode slow = head;
+		ListNode fast = head;
+		while (fast.next != null && fast.next.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+		}
+		ListNode after = slow.next;
+		slow.next = null;
+		ListNode pre = null;
+		while (after != null) {
+			ListNode temp = after.next;
+			after.next = pre;
+			pre = after;
+			after = temp;
+		}
+		ListNode first = head;
+		after = pre;
+		while (first != null && after != null) {
+			ListNode ftemp = first.next;
+			ListNode atemp = after.next;
+			first.next = after;
+			first = ftemp;
+			after.next = first;
+			after = atemp;
+		}
+	}
+
+	public static void shellSort(int[] a) {
+		int len = a.length;
+		for (int h = len / 2; h > 0; h = h / 2) {
+			for (int i = h; i < len; i++) {
+				int j = i;
+				int temp = a[i];
+				while (j > h && a[j - h] > temp) {
+					a[j] = a[j - h];
+					j = j - h;
+				}
+				a[j] = temp;
+			}
+		}
+	}
+
+	public static void slectSort(int[] a) {
+		int len = a.length;
+		for (int i = 0; i < len; i++) {
+			int j = i;
+			int temp = a[i];
+			while (j > 0 && a[j - 1] > temp) {
+				a[j] = a[j - 1];
+				j--;
+			}
+			a[j] = temp;
 		}
 	}
 }
