@@ -1,6 +1,7 @@
 package com.skf.niuke;
 
 import java.util.ArrayList;
+import java.util.Set;
 import java.util.Stack;
 
 import test4.ListNode;
@@ -228,4 +229,25 @@ public class Test {
 			a[j] = temp;
 		}
 	}
+
+	public boolean hasCycle(ListNode head) {
+		if (head == null) {
+			return false;
+		}
+		ListNode slow = head;
+		ListNode fast = head;
+		while (fast != null && fast.next != null) {
+			slow = slow.next;
+			fast = fast.next.next;
+			if (slow == fast) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public ArrayList<String> wordBreak(String s, Set<String> dict) {
+		return null;
+	}
+
 }
