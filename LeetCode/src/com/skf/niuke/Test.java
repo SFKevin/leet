@@ -228,4 +228,26 @@ public class Test {
 			a[j] = temp;
 		}
 	}
+
+	public ListNode detectCycle(ListNode head) {
+		ListNode slow = head;
+		ListNode quick = head;
+		boolean flag = false;
+		while (quick != null && quick.next != null) {
+			slow = slow.next;
+			quick = quick.next.next;
+			if (slow == quick) {
+				flag = true;
+				break;
+			}
+		}
+		if (!flag) {
+			return null;
+		}
+		while (head != slow) {
+			head = head.next;
+			slow = slow.next;
+		}
+		return head;
+	}
 }
