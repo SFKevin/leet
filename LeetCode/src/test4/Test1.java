@@ -527,4 +527,33 @@ public class Test1 {
 		return slow;
 	}
 
+	public ArrayList<String> wordBreak(String s, Set<String> dict) {
+		ArrayList<String> lists = new ArrayList<String>();
+		ArrayList<String> strs = new ArrayList<String>();
+		int len = s.length();
+		dfs(s, len, dict, lists, strs);
+		return lists;
+	}
+
+	private void dfs(String s, int len, Set<String> dict, ArrayList<String> lists, ArrayList<String> strs) {
+		if (len <= 0) {
+			int size = strs.size() - 1;
+			StringBuffer sBuffer = new StringBuffer();
+			for (; size >= 0; size--) {
+				sBuffer.append(strs.get(size));
+				if (size != 0) {
+					sBuffer.append(" ");
+				}
+			}
+			lists.add(sBuffer.toString());
+		}
+		for (int k = len - 1; k >= 0; k--) {
+			if (dict.contains(s.substring(k, len))) {
+				strs.add(s.substring(k, len));
+				dfs(s, k, dict, lists, strs);
+				strs.remove(strs.size() - 1);
+			}
+		}
+	}
+
 }

@@ -1,26 +1,31 @@
 package com.skf.niuke;
 
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
 		Scanner scanner = new Scanner(System.in);
-		String str = scanner.nextLine();
-		char[] arrays = str.toCharArray();
-		int max = Integer.MIN_VALUE;
-		HashMap<Character, Integer> map = new HashMap<Character, Integer>();
-		int start = 1;
-		for (int i = 1; i <= arrays.length; i++) {
-			char temp = arrays[i - 1];
-			if (map.containsKey(temp) && map.get(temp) >= start) {
-				start = map.get(temp) + 1;
-				map.put(temp, i);
+		int n = scanner.nextInt();
+		int m = scanner.nextInt();
+		int k = scanner.nextInt();
+		int left = 1;
+		int right = m * n;
+		while (left <= right) {
+			int mid = (left + right) / 2;
+			if (cal(mid, n, m) < k) {
+				left = mid + 1;
 			} else {
-				map.put(temp, i);
-				max = Math.max(max, i - start + 1);
+				right = mid - 1;
 			}
 		}
-		System.out.println(max);
+		System.out.print(left);
+	}
+
+	private static int cal(int mid, int n, int m) {
+		int sum = 0;
+		for (int i = 1; i <= n; i++) {
+			sum += (mid >= m * i) ? m : mid / i;
+		}
+		return sum;
 	}
 }
