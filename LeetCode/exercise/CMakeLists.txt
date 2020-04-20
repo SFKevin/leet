@@ -1,0 +1,7 @@
+cmake_minimum_required(VERSION 2.8)
+project(Demo)
+aux_source_directory(. MAIN_SRCS)
+include_directories(. ./sort)
+add_subdirectory(sort)
+add_executable(Demo ${MAIN_SRCS})
+target_link_libraries(Demo sort)

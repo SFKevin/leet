@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+I:/workplace4j/leet/LeetCode/exercise/main.cpp
+iostream
+-
+./sort/sort.h
+I:/workplace4j/leet/LeetCode/exercise/sort/sort.h
+
+I:/workplace4j/leet/LeetCode/exercise/sort/sort.h
+vector
+-
+

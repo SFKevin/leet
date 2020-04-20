@@ -6,7 +6,7 @@
             "command": "g++",
             "args": [
                 "-I",
-                "${workspaceFolder}",
+                "${workspaceFolder}/LeetCode/exercise",
                 "${file}",
                 "-o",
                 "${fileDirname}\\${fileBasenameNoExtension}.exe"
