@@ -1,2 +1,0 @@
-D:\mingw64\bin\ar.exe qc libsort.a  CMakeFiles/sort.dir/sort.cpp.obj
-D:\mingw64\bin\ranlib.exe libsort.a
