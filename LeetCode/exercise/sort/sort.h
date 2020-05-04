@@ -1,5 +1,5 @@
 #ifndef __SORT_H
-#define __SORT_h
+#define __SORT_H
 #include<vector>
 using namespace std;
 
